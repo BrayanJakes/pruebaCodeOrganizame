@@ -1,0 +1,25 @@
+<div class="container" *ngIf="title === 'Vehículo'">
+    <p> <span style="font-weight: 600;">Marca:</span> {{ data.marca }}.</p>
+    <p> <span  style="font-weight: 600;">Modelo:</span> {{ data.modelo }}.</p>
+    <p> <span  style="font-weight: 600;">Placa:</span> {{ data.placa }}.</p>
+    <p> <span  style="font-weight: 600;">Año:</span> {{ data.anio }}.</p>
+    <p> <span  style="font-weight: 600;">Creador:</span> {{ data.creador }}.</p>
+</div>
+
+
+<div class="container" *ngIf="title === 'Computador'">
+    <p> <span  style="font-weight: 600;">Marca:</span> {{ data.marca }}.</p>
+    <p> <span  style="font-weight: 600;">Almacenamiento:</span> {{ data.almacenamiento }}.</p>
+    <p> <span  style="font-weight: 600;">RAM:</span> {{ data.ram }}.</p>
+    <p> <span  style="font-weight: 600;">Video:</span> {{ data.video }}.</p>
+    <p> <span  style="font-weight: 600;">Creador:</span> {{ data.creador }}.</p>
+</div>
+
+
+<div class="container" *ngIf="title === 'Empleado'">
+    <p> <span  style="font-weight: 600;">Nombre:</span> {{ data.nombre }}.</p>
+    <p> <span  style="font-weight: 600;">Edad:</span> {{ data.edad }}.</p>
+    <p> <span  style="font-weight: 600;">Sexo:</span> {{ data.sexo }}.</p>
+    <p> <span  style="font-weight: 600;">Telefono:</span> {{ data.telefono }}.</p>
+    <p> <span  style="font-weight: 600;">Creador de usuario:</span> {{ data.creadorUser }}.</p>
+</div>

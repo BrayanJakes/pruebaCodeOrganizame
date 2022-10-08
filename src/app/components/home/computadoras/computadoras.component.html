@@ -1,0 +1,150 @@
+<nav class="navbar navbar-expand-lg dsamcosamc">
+    <div class="container-fluid">
+     
+      <div class="collapse navbar-collapse " >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " style="font-weight: 700;">
+            Computadoras agregadas
+        </ul>
+        <button type="button" class="btn btn-primary" (click)="open(content)" >Agregar computadora</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="text-center"  *ngIf="loading">
+    <div class="spinner-border text-primary "  role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+  </div>
+
+  <div class="text-center"  *ngIf="computadoras.length === 0 && !loading">
+    Sin datos
+  </div>
+
+  <ngb-toast  header="Notificacion" *ngIf="show" [autohide]="false" class="csamdoas" (hidden)="show=false">
+    {{ mensaje }}
+  </ngb-toast>
+<table class="table table-striped mt-3" *ngIf="computadoras.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Almacenamiento</th>
+      <th scope="col">RAM</th>
+      <th scope="col">Video</th>
+      <th scope="col">Creador</th>
+      
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let computadora of computadoras; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ computadora.marca }}
+      </td>
+      <td>{{ computadora.almacenamiento }}</td>
+      <td>{{ computadora.ram }}</td>
+      <td>{{ computadora.video }}</td>
+      <td>{{ computadora.creador }}</td>
+      <td>
+        <i class="fas fa-eye"
+        placement="top" ngbTooltip="Ver computadora"
+        style="cursor: pointer;" 
+        (click)="verVehiculo(computadora)"
+        ></i>
+        &nbsp;
+        <i class="fas fa-pencil-alt text-primary" 
+        style="cursor: pointer;" 
+        (click)="editar(content, computadora)"
+        placement="top" ngbTooltip="Editar computadora" 
+        ></i>
+        &nbsp;
+        <i class="fas fa-trash  text-danger" 
+        style="cursor: pointer;" 
+        (click)="eliminar(content2, computadora.id)"
+        placement="top" ngbTooltip="Eliminar computadora" 
+        ></i>
+    
+        </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Crear computadora</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="form">
+
+        <div class=" form-group mt-2">
+            <label> Marca: </label>
+            <select class=" form-control" formControlName="marca">
+                <option value="Intel"> Intel</option>
+                <option value="AMD"> AMD</option>
+            </select>
+          </div>
+          <div class=" form-group mt-2">
+            <label> Almacenamiento: </label>
+            <input
+              class=" form-control"
+              placeholder="Almacenamieto de la computadora"
+              type="text"
+              formControlName="almacenamiento"
+            />
+          </div>
+
+          <div class=" form-group mt-2">
+            <label> RAM: </label>
+            <input
+              class=" form-control"
+              placeholder="RAM de la computadora"
+              type="text"
+              formControlName="ram"
+            />
+          </div>
+
+          <div class=" form-group mt-2">
+            <label> Video: </label>
+            <input
+              class=" form-control"
+              placeholder="Video de la computadora"
+              type="text"
+              formControlName="video"
+            />
+          </div>
+        </form>
+
+       
+        
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-fill btn-success" (click)="modal.close('Guardar')" *ngIf="flag === 1"  [disabled]="form.status === 'INVALID'" >Guardar</button>
+      <button type="button" class="btn btn-fill btn-success" (click)="modal.close('Editar')" *ngIf="flag === 2"  [disabled]="form.status === 'INVALID'" >Editar</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #content2 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Eliminar computadora</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+       Seguro que quieres eliminar este computadora?
+
+       
+        
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-fill btn-danger" (click)="modal.close('Eliminar')">Eliminar</button>
+    </div>
+  </ng-template>
+
+ 

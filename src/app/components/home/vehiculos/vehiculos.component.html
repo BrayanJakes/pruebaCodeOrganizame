@@ -1,0 +1,150 @@
+<nav class="navbar navbar-expand-lg dsamcosamc">
+    <div class="container-fluid">
+     
+      <div class="collapse navbar-collapse " >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " style="font-weight: 700;">
+          Vehículos agregados
+        </ul>
+        <button type="button" class="btn btn-primary" (click)="open(content)" >Agregar vehículo</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="text-center"  *ngIf="loading">
+    <div class="spinner-border text-primary "  role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+  </div>
+
+  <div class="text-center"  *ngIf="vehiculos.length === 0 && !loading">
+    Sin datos
+  </div>
+
+  <ngb-toast  header="Notificacion" *ngIf="show" [autohide]="false" class="csamdoas" (hidden)="show=false">
+    {{ mensaje }}
+  </ngb-toast>
+<table class="table table-striped mt-3" *ngIf="vehiculos.length > 0">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Placa</th>
+      <th scope="col">Año</th>
+      <th scope="col">Creador</th>
+      
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let vehiculo of vehiculos; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        {{ vehiculo.marca }}
+      </td>
+      <td>{{ vehiculo.modelo }}</td>
+      <td>{{ vehiculo.placa }}</td>
+      <td>{{ vehiculo.anio }}</td>
+      <td>{{ vehiculo.creador }}</td>
+      <td>
+        <i class="fas fa-eye"
+        placement="top" ngbTooltip="Ver vehículo"
+        style="cursor: pointer;" 
+        (click)="verVehiculo(vehiculo)"
+        ></i>
+        &nbsp;
+        <i class="fas fa-pencil-alt text-primary" 
+        style="cursor: pointer;" 
+        placement="top" ngbTooltip="Editar vehículo"
+        (click)="editar(content, vehiculo)" ></i>
+        &nbsp;
+        <i class="fas fa-trash  text-danger" 
+        style="cursor: pointer;"
+        placement="top" ngbTooltip="Eliminar vehículo" 
+        (click)="eliminar(content2, vehiculo.id)"></i>
+    
+        </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Crear vehículo</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <form [formGroup]="form">
+
+        <div class=" form-group mt-2">
+            <label> Marca: </label>
+            <select class=" form-control" formControlName="marca">
+                <option value="Ford"> Ford</option>
+                <option value="Chevrolet"> Chevrolet</option>
+                <option value="Hyundai"> Hyundai</option>
+                <option value="Mitsubishi">Mitsubishi</option>
+            </select>
+          </div>
+          <div class=" form-group mt-2">
+            <label> Modelo: </label>
+            <input
+              class=" form-control"
+              placeholder="Modelo del vehículo"
+              type="text"
+              formControlName="modelo"
+            />
+          </div>
+
+          <div class=" form-group mt-2">
+            <label> Placa: </label>
+            <input
+              class=" form-control"
+              placeholder="Placa del vehículo"
+              type="text"
+              formControlName="placa"
+            />
+          </div>
+
+          <div class=" form-group mt-2">
+            <label> Año: </label>
+            <input
+              class=" form-control"
+              placeholder="Año del vehículo"
+              type="text"
+              formControlName="anio"
+            />
+          </div>
+        </form>
+
+       
+        
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-fill btn-success" (click)="modal.close('Guardar')" *ngIf="flag === 1"  [disabled]="form.status === 'INVALID'" >Guardar</button>
+      <button type="button" class="btn btn-fill btn-success" (click)="modal.close('Editar')" *ngIf="flag === 2"  [disabled]="form.status === 'INVALID'" >Editar</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #content2 let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Eliminar vehículo</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+       Seguro que quieres eliminar este vehículo?
+
+       
+        
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-fill btn-danger" (click)="modal.close('Eliminar')">Eliminar</button>
+    </div>
+  </ng-template>
+
+ 
